@@ -1,264 +1,434 @@
-<div align="center">
+# Master Claude
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/banner.svg">
-  <source media="(prefers-color-scheme: light)" srcset="assets/banner.svg">
-  <img alt="AgentSpec — Spec-Driven Data Engineering" src="assets/banner.svg" width="100%">
-</picture>
-
-<br/><br/>
-
-[![Claude Code Plugin](https://img.shields.io/badge/Claude%20Code-Plugin-blueviolet?style=flat-square)](plugin/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue?style=flat-square)](LICENSE)
-[![Version](https://img.shields.io/badge/v3.0.0-green?style=flat-square)](CHANGELOG.md)
-
-**A single AI agent reviewing your data pipeline will miss things.**<br/>
-**58 specialized agents with 23 knowledge domains will not.**
-
-<br/>
-
-[Install](#install) · [Quick Start](#quick-start) · [Commands](#which-command-do-i-need) · [Agents](#58-agents-across-8-categories) · [Docs](docs/)
-
-</div>
-
-<br/>
-
-## Why AgentSpec?
-
-Every time you ask an AI to build a data pipeline, it starts from scratch — no memory of partition strategies, no awareness of SCD patterns, no understanding of your data contracts. You get hallucinated SQL, wrong incremental strategies, and pipelines that pass in dev but break in production.
-
-AgentSpec solves this with **Spec-Driven Data Engineering**: a 5-phase workflow where every phase has access to 23 knowledge base domains, every agent knows its boundaries, and every decision is confidence-scored against real documentation — not guessed.
-
-<br/>
-
-## Install
-
-```bash
-# Install the plugin (one-time)
-claude plugin marketplace add luanmorenommaciel/agentspec
-claude plugin install agentspec
-```
-
-Done. Every Claude Code session now has 58 agents, 29 commands, and 23 KB domains. Updates are one command:
-
-```bash
-claude plugin update agentspec
-```
-
-<details>
-<summary><b>Alternative install methods</b></summary>
-
-```bash
-# Local testing (no install needed)
-git clone https://github.com/luanmorenommaciel/agentspec.git
-claude --plugin-dir ./agentspec/plugin
-
-# Legacy copy (pre-plugin, still works)
-git clone https://github.com/luanmorenommaciel/agentspec.git
-cp -r agentspec/.claude your-project/.claude
-```
-
-</details>
-
-<br/>
-
-## Quick Start
-
-### Build a data pipeline in 5 phases
-
-```bash
-/agentspec:brainstorm "Daily orders pipeline from Postgres to Snowflake star schema"
-/agentspec:define ORDERS_PIPELINE
-/agentspec:design ORDERS_PIPELINE
-/agentspec:build ORDERS_PIPELINE
-/agentspec:ship ORDERS_PIPELINE
-```
-
-### Or jump straight to what you need
-
-```bash
-/agentspec:schema "Star schema for e-commerce analytics"
-/agentspec:pipeline "Daily orders ETL with Airflow"
-/agentspec:data-quality models/staging/stg_orders.sql
-/agentspec:sql-review models/marts/
-/agentspec:data-contract "Contract between orders team and analytics"
-```
-
-<br/>
-
-## Which Command Do I Need?
-
-### Data Engineering
-
-| I want to... | Command | Agent |
-|:--|:--|:--|
-| Design a data pipeline / DAG | `/agentspec:pipeline` | `pipeline-architect` |
-| Design a star schema / data model | `/agentspec:schema` | `schema-designer` |
-| Add data quality checks | `/agentspec:data-quality` | `data-quality-analyst` |
-| Optimize slow SQL | `/agentspec:sql-review` | `sql-optimizer` |
-| Choose Iceberg vs Delta Lake | `/agentspec:lakehouse` | `lakehouse-architect` |
-| Build a RAG / embedding pipeline | `/agentspec:ai-pipeline` | `ai-data-engineer` |
-| Create a data contract | `/agentspec:data-contract` | `data-contracts-engineer` |
-| Migrate legacy SSIS / Informatica | `/agentspec:migrate` | `dbt-specialist` + `spark-engineer` |
-
-### SDD Workflow
-
-| I want to... | Command | What Happens |
-|:--|:--|:--|
-| Explore an idea | `/agentspec:brainstorm` | Compare approaches, discovery questions, YAGNI filter |
-| Capture requirements | `/agentspec:define` | Structured requirements with clarity score (min 12/15) |
-| Design architecture | `/agentspec:design` | File manifest + pipeline architecture + ADRs |
-| Implement the feature | `/agentspec:build` | Auto-delegates to specialist agents per file type |
-| Archive completed work | `/agentspec:ship` | Lessons learned + KB updates |
-| Update after changes | `/agentspec:iterate` | Cascade-aware updates across all phase documents |
-
-### Visual & Utilities
-
-| I want to... | Command |
-|:--|:--|
-| Generate architecture diagrams | `/agentspec:generate-web-diagram` |
-| Create presentation slides | `/agentspec:generate-slides` |
-| Visual implementation plan | `/agentspec:generate-visual-plan` |
-| Review code changes visually | `/agentspec:diff-review` |
-| Review code | `/agentspec:review` |
-| Analyze meeting transcripts | `/agentspec:meeting` |
-| Create a new KB domain | `/agentspec:create-kb` |
-| Share HTML page via Vercel | `/agentspec:share` |
-
-<br/>
-
-## How It Works
-
-```
-  BRAINSTORM ──► DEFINE ──► DESIGN ──► BUILD ──► SHIP
-  Explore ideas   Scope &    File       Agent      Archive &
-  & approaches    contracts  manifest   delegation lessons
-
-                                │
-          ┌─────────────────────┼──────────────────────┐
-          ▼                     ▼                      ▼
-    ┌───────────┐        ┌───────────┐          ┌───────────┐
-    │ dbt-spec  │        │ spark-eng │          │ pipeline  │
-    │ Models    │        │ Jobs      │          │ DAGs      │
-    └─────┬─────┘        └─────┬─────┘          └─────┬─────┘
-          └────────────────────┼──────────────────────┘
-                               ▼
-                         BUILD REPORT
-                         Tests + Quality Gates
-
-                          ↻ /iterate
-                    Cascade-aware updates
-```
-
-**Agent matching:** Your DESIGN doc specifies dbt staging models, a PySpark job, and an Airflow DAG — AgentSpec automatically delegates to `dbt-specialist`, `spark-engineer`, and `pipeline-architect`.
-
-**Requirements changed?** `/agentspec:iterate` updates any phase document with automatic cascade detection across all downstream docs.
-
-<br/>
-
-## 58 Agents Across 8 Categories
-
-| Category | Count | Focus |
-|:--|:--|:--|
-| **Architect** | 8 | Schema design, pipeline architecture, medallion layers, GenAI systems |
-| **Cloud** | 10 | AWS Lambda, GCP Cloud Run, Supabase, CI/CD, Terraform |
-| **Data Engineering** | 15 | dbt, Spark, Airflow, streaming, Lakeflow, SQL optimization |
-| **Platform** | 6 | Microsoft Fabric end-to-end (architecture, pipelines, security, AI, logging, CI/CD) |
-| **Python** | 6 | Code review, documentation, cleaning, prompt engineering |
-| **Workflow** | 6 | Brainstorm, define, design, build, ship, iterate |
-| **Dev** | 4 | Codebase exploration, shell scripting, meeting analysis, prompt crafting |
-| **Test** | 3 | Test generation, data quality analysis, data contract authoring |
-
-Every agent follows the same cognitive framework:
-
-1. **KB-first** — check local knowledge base before external sources
-2. **Confidence-scored** — calculate confidence from evidence, never self-assess
-3. **Escalation-aware** — transfer to the right specialist when out of domain
-4. **Quality-gated** — pre-flight checklist before every substantive response
-
-<br/>
-
-## 23 Knowledge Base Domains
-
-| Category | Domains |
-|:--|:--|
-| **Core DE** | `dbt` · `spark` · `sql-patterns` · `airflow` · `streaming` |
-| **Data Design** | `data-modeling` · `data-quality` · `medallion` |
-| **Infrastructure** | `lakehouse` · `lakeflow` · `cloud-platforms` · `terraform` |
-| **Cloud** | `aws` · `gcp` · `microsoft-fabric` |
-| **AI & Modern** | `ai-data-engineering` · `modern-stack` · `genai` · `prompt-engineering` |
-| **Foundations** | `pydantic` · `python` · `testing` |
-
-Each domain contains an `index.md`, `quick-reference.md`, `concepts/` (3-6 files), and `patterns/` (3-6 files with production code). Agents load domains on-demand, not upfront.
-
-<br/>
-
-## 5-Phase Workflow with Quality Gates
-
-| Phase | Command | Output | Gate |
-|:--|:--|:--|:--|
-| **0. Brainstorm** | `/agentspec:brainstorm` | `BRAINSTORM_{FEATURE}.md` | 3+ questions, 2+ approaches |
-| **1. Define** | `/agentspec:define` | `DEFINE_{FEATURE}.md` | Clarity Score >= 12/15 |
-| **2. Design** | `/agentspec:design` | `DESIGN_{FEATURE}.md` | Complete manifest + schema plan |
-| **3. Build** | `/agentspec:build` | Code + `BUILD_REPORT.md` | All tests pass |
-| **4. Ship** | `/agentspec:ship` | `SHIPPED_{DATE}.md` | Acceptance verified |
-
-<br/>
-
-## Project Structure
-
-```
-agentspec/
-├── .claude/                 # Source of truth (development)
-│   ├── agents/              # 58 agents across 8 categories
-│   ├── commands/            # 29 slash commands
-│   ├── skills/              # visual-explainer, excalidraw-diagram
-│   ├── kb/                  # 23 knowledge base domains
-│   └── sdd/                 # Templates, contracts, features, archive
-│
-├── plugin/                  # Distributable Claude Code plugin
-│   ├── .claude-plugin/      # Manifest + marketplace config
-│   ├── agents/              # Path-rewritten agents
-│   ├── skills/              # 4 skills (2 original + 2 plugin-only)
-│   ├── hooks/               # SessionStart workspace init
-│   └── ...                  # commands, kb, sdd, scripts
-│
-├── plugin-extras/           # Plugin-only content (merged by build)
-├── build-plugin.sh          # Packages .claude/ → plugin/
-└── docs/                    # Getting started, concepts, tutorials, reference
-```
-
-<br/>
-
-## Documentation
-
-| Guide | What You'll Learn |
-|:--|:--|
-| [Getting Started](docs/getting-started/) | Install and build your first data pipeline |
-| [Core Concepts](docs/concepts/) | SDD pillars through a data engineering lens |
-| [Tutorials](docs/tutorials/) | dbt, star schema, data quality, Spark, streaming, RAG |
-| [Reference](docs/reference/) | Full catalog: 58 agents, 29 commands, 23 KB domains |
-
-<br/>
-
-## Contributing
-
-We welcome contributions. See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
-
-**Agents** · **KB Domains** · **Commands** · **Plugin Development** · **Documentation**
-
-<br/>
-
-## License
-
-MIT — see [LICENSE](LICENSE).
+> A curated knowledge base of tools, skills, and frameworks for the Claude Code ecosystem.
 
 ---
 
-<div align="center">
+## Table of Contents
 
-[Documentation](docs/) · [Contributing](CONTRIBUTING.md) · [Changelog](CHANGELOG.md)
+- [Overview](#overview)
+- [Repositories](#repositories)
+  - [Caveman](#-caveman)
+  - [Squeez](#-squeez)
+  - [AgentSpec](#-agentspec)
+  - [Claude-Mem](#-claude-mem)
+  - [Bedrock](#-bedrock)
+  - [Oh My ClaudeCode](#-oh-my-claudecode)
+  - [OpenSquad](#-opensquad)
 
-Built with [Claude Code](https://docs.anthropic.com/en/docs/claude-code)
+---
 
-</div>
+## Overview
+
+Master Claude is a living reference document that consolidates the repositories, tools, and plugins I use for Claude Code development. Each entry covers what the tool does, how to install it, and key usage notes — everything needed to get up and running fast.
+
+---
+
+## Repositories
+
+### 🪨 Caveman
+
+| | |
+|---|---|
+| **Repository** | [JuliusBrussee/caveman](https://github.com/JuliusBrussee/caveman) |
+| **Category** | Token Optimization · Claude Code Skill |
+| **License** | MIT |
+
+#### What it does
+
+A Claude Code skill that forces Claude to respond in caveman-speak — stripping filler words, pleasantries, and hedging while preserving full technical accuracy. The result is roughly **75% fewer output tokens**, which translates directly to lower cost and faster responses.
+
+**What gets removed:** articles (a, an, the), pleasantries ("Sure, I'd be happy to..."), hedging ("It might be worth considering...").
+
+**What stays intact:** code blocks, technical terms, error messages, git commits, and PR descriptions are all written normally.
+
+#### Install
+
+```bash
+claude install-skill JuliusBrussee/caveman
+```
+
+#### Usage
+
+Activate it in a session with any of these triggers:
+
+- `/caveman`
+- `"talk like caveman"`
+- `"caveman mode"`
+- `"less tokens please"`
+
+Deactivate with `"stop caveman"` or `"normal mode"`.
+
+---
+
+### 🗜️ Squeez
+
+| | |
+|---|---|
+| **Repository** | [claudioemmanuel/squeez](https://github.com/claudioemmanuel/squeez) |
+| **Category** | Token Compression · Context Optimization · Claude Code Hooks |
+| **License** | MIT |
+| **Language** | Rust (90%) / Shell (10%) |
+
+#### What it does
+
+Squeez is a Rust-based tool that hooks into Claude Code to automatically compress bash output, track token usage, and inject session memory — all with zero configuration. It operates via three Claude Code hooks:
+
+1. **Bash compression** (`PreToolUse`) — intercepts every bash command, removes noise from the output. Achieves up to 95% token reduction on commands like `ps aux`.
+2. **Session memory** (`SessionStart`) — summarizes the previous session (files touched, errors resolved, test results, git events) and injects it as a banner when a new session starts.
+3. **Token tracking** (`PostToolUse`) — tracks cumulative context usage across tool calls and emits a warning at 80% of the context budget.
+
+#### Benchmarks
+
+| Fixture | Before | After | Reduction |
+|---|---|---|---|
+| `ps aux` | 40,373 tk | 2,352 tk | **-95%** |
+| `git log` (200 commits) | 2,667 tk | 819 tk | **-70%** |
+| `docker logs` | 665 tk | 186 tk | **-73%** |
+| `ls -la` | 1,782 tk | 886 tk | **-51%** |
+| `git diff` | 502 tk | 317 tk | **-37%** |
+
+All fixtures complete under 10ms latency.
+
+#### Install
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/claudioemmanuel/squeez/main/install.sh | sh
+```
+
+Restart Claude Code after installation.
+
+#### Escape hatch
+
+Bypass compression for a specific command:
+
+```bash
+--no-squeez git log --all --graph
+```
+
+#### Configuration (optional)
+
+Create `~/.claude/squeez/config.ini`:
+
+```ini
+# Compression
+max_lines = 200
+dedup_min = 3
+git_log_max_commits = 20
+docker_logs_max_lines = 100
+bypass = docker exec, psql, ssh
+
+# Session memory
+compact_threshold_tokens = 160000
+memory_retention_days = 30
+```
+
+#### Local development
+
+```bash
+git clone https://github.com/claudioemmanuel/squeez.git
+cd squeez
+cargo test
+cargo build --release
+mkdir -p "$HOME/.claude/squeez/bin"
+cp target/release/squeez "$HOME/.claude/squeez/bin/squeez"
+bash install.sh
+```
+
+To uninstall: `bash uninstall.sh`
+
+---
+
+### 📋 AgentSpec
+
+| | |
+|---|---|
+| **Repository** | [luanmorenommaciel/agentspec](https://github.com/luanmorenommaciel/agentspec) |
+| **Category** | Spec-Driven Development · Workflow Framework · Claude Code Plugin |
+| **License** | MIT |
+| **Version** | 1.0.0 |
+
+#### What it does
+
+AgentSpec is a Spec-Driven Development (SDD) framework for Claude Code. It replaces ad-hoc prompting with a structured 5-phase workflow that produces traceable artifacts at every step — from brainstorming through shipping.
+
+It includes **17 specialized agents** across four categories: workflow (6), code quality (6), communication (3), and exploration (2). It also ships a knowledge base framework for building domain-specific grounding.
+
+#### The 5-Phase Workflow
+
+```
+/brainstorm  →  /define  →  /design  →  /build  →  /ship
+   (Explore)    (Capture)   (Architect)  (Execute)  (Archive)
+```
+
+| Phase | Command | Artifact produced |
+|---|---|---|
+| Brainstorm | `/brainstorm` | `BRAINSTORM_*.md` |
+| Define | `/define` | `DEFINE_*.md` |
+| Design | `/design` | `DESIGN_*.md` |
+| Build | `/build` | `BUILD_REPORT_*.md` |
+| Ship | `/ship` | `SHIPPED_*.md` |
+
+During `/build`, AgentSpec automatically matches the right agents to the task based on what the DESIGN doc mentions (e.g., references to Pydantic and pytest will route to the python-developer, test-generator, and code-reviewer agents).
+
+#### Install
+
+```bash
+git clone https://github.com/luanmorenommaciel/agentspec.git
+cd your-project
+claude --plugin-dir /path/to/agentspec
+```
+
+#### Project structure it creates
+
+```
+your-project/
+├── .claude/
+│   └── sdd/
+│       ├── features/     # Active feature documents
+│       ├── reports/      # Build reports
+│       └── archive/      # Shipped features & lessons learned
+```
+
+#### Quick example
+
+```bash
+claude> /brainstorm "Add user authentication to the app"
+claude> /define
+claude> /design
+claude> /build
+claude> /ship
+```
+
+---
+
+### 🧠 Claude-Mem
+
+| | |
+|---|---|
+| **Repository** | [thedotmack/claude-mem](https://github.com/thedotmack/claude-mem) |
+| **Category** | Persistent Memory · Context Compression · Claude Code Plugin |
+| **License** | AGPL-3.0 |
+| **Language** | TypeScript (83%) / JavaScript (11%) / Shell (3%) |
+| **Version** | 6.5.0+ (230 releases) |
+
+#### What it does
+
+Claude-Mem is a persistent memory compression system for Claude Code. It automatically captures everything Claude does during coding sessions — tool usage, decisions, errors resolved — compresses it with AI (via the Claude Agent SDK), and injects relevant context back into future sessions. This gives Claude continuity across sessions without any manual intervention.
+
+It works through 5 lifecycle hooks (SessionStart, UserPromptSubmit, PostToolUse, Stop, SessionEnd), a worker service on port 37777 with a web viewer UI, a SQLite database for storage, and a Chroma vector database for hybrid semantic + keyword search.
+
+Key capabilities: persistent memory across sessions, progressive disclosure (layered retrieval with token cost visibility), MCP-based search tools with a 3-layer workflow (search → timeline → get_observations) for ~10x token savings, privacy control via `<private>` tags, web viewer UI at `http://localhost:37777`, and multi-language mode support.
+
+#### Install
+
+```bash
+npx claude-mem install
+```
+
+Or via plugin marketplace:
+
+```
+/plugin marketplace add thedotmack/claude-mem
+/plugin install claude-mem
+```
+
+Restart Claude Code after installation.
+
+#### Requirements
+
+Node.js 18+, Bun (auto-installed), uv (auto-installed), SQLite 3 (bundled).
+
+#### Configuration
+
+Settings managed in `~/.claude-mem/settings.json` (auto-created on first run). Supports mode/language configuration via `CLAUDE_MEM_MODE` (e.g., `"code--zh"` for Simplified Chinese).
+
+#### MCP search tools
+
+Four MCP tools follow a token-efficient workflow: `search` (compact index, ~50-100 tokens/result) → `timeline` (chronological context) → `get_observations` (full details, ~500-1000 tokens/result). Always filter before fetching.
+
+---
+
+### 🪨 Bedrock
+
+| | |
+|---|---|
+| **Repository** | [iurykrieger/claude-bedrock](https://github.com/iurykrieger/claude-bedrock) |
+| **Category** | Second Brain · Obsidian Automation · Claude Code Plugin |
+| **License** | MIT |
+| **Language** | HTML (41%) / TypeScript (40%) / JavaScript (16%) |
+| **Version** | 1.1.2 |
+
+#### What it does
+
+Bedrock is a Claude Code plugin that turns any Obsidian vault into a structured Second Brain using AI agents. It organizes knowledge into 7 entity types (actors, people, teams, topics, discussions, projects, fleeting notes) following adapted Zettelkasten principles — with automatic entity detection, bidirectional wikilinks, external source ingestion, deduplication, and sync.
+
+No build system or runtime needed — just markdown files, AI agents, and your vault.
+
+#### Skills
+
+| Skill | Purpose |
+|---|---|
+| `/bedrock:setup` | Interactive vault initialization and configuration |
+| `/bedrock:ask` | Orchestrated vault reader — decomposes questions, searches graph and entities |
+| `/bedrock:teach` | Ingest external sources (Confluence, Google Docs, GitHub, CSV) and create entities |
+| `/bedrock:preserve` | Single write point — detect, match, create/update entities with bidirectional links |
+| `/bedrock:compress` | Deduplication and vault health — broken links, orphans, stale content |
+| `/bedrock:sync` | Re-sync entities with external sources |
+
+#### Install
+
+```
+/plugin marketplace add iurykrieger/claude-bedrock
+/plugin install iurykrieger/claude-bedrock
+```
+
+Then run the setup wizard:
+
+```
+/bedrock:setup
+```
+
+The setup guides through language selection, dependency checks, vault objective preset (engineering team, product management, company wiki, personal second brain, etc.), and scaffolding of directories, templates, config, and example entities.
+
+#### Vault structure
+
+```
+your-vault/
+├── actors/          # Systems, services, APIs (permanent notes)
+├── people/          # Contributors, team members (permanent notes)
+├── teams/           # Squads, organizational units (permanent notes)
+├── topics/          # Cross-cutting subjects with lifecycle (bridge notes)
+├── discussions/     # Meeting notes, conversations (bridge notes)
+├── projects/        # Initiatives with scope and deadline (index notes)
+└── fleeting/        # Raw ideas, unstructured captures (fleeting notes)
+```
+
+#### Optional dependencies
+
+graphify (semantic code extraction for GitHub repos), confluence-to-markdown, gdoc-to-markdown — none are required.
+
+---
+
+### ⚡ Oh My ClaudeCode
+
+| | |
+|---|---|
+| **Repository** | [Yeachan-Heo/oh-my-claudecode](https://github.com/Yeachan-Heo/oh-my-claudecode) |
+| **Category** | Multi-Agent Orchestration · Parallel Execution · Claude Code Plugin |
+| **License** | MIT |
+| **Language** | TypeScript (69%) / JavaScript (26%) / Python (3%) |
+| **Stars** | 3.6k |
+
+#### What it does
+
+Oh My ClaudeCode (OMC) is a multi-agent orchestration framework for Claude Code with 5 execution modes, 31+ skills, and 32 specialized agents. It provides automatic parallelization, persistent execution (won't stop until verified complete), smart model routing (Haiku for simple tasks, Opus for complex reasoning), and cost optimization that saves 30–50% on tokens.
+
+#### Execution modes
+
+| Mode | Description |
+|---|---|
+| **Autopilot** | Full autonomous workflows |
+| **Ultrapilot** | 3–5x faster via parallel multi-component execution |
+| **Ecomode** | Token-efficient, 30–50% cheaper |
+| **Swarm** | Coordinated parallel independent tasks |
+| **Pipeline** | Sequential multi-stage processing |
+
+#### Install
+
+```
+/plugin marketplace add https://github.com/Yeachan-Heo/oh-my-claudecode
+/plugin install oh-my-claudecode
+```
+
+Then run setup:
+
+```
+/oh-my-claudecode:omc-setup
+```
+
+#### Magic keywords
+
+| Keyword | Effect |
+|---|---|
+| `autopilot` | Full autonomous execution |
+| `ralph` | Persistence mode (includes ultrawork parallel execution) |
+| `ulw` | Maximum parallelism |
+| `eco` | Token-efficient execution |
+| `plan` | Planning interview |
+
+Usage is natural language — keywords are optional shortcuts: `autopilot: build a REST API for managing tasks`.
+
+#### Rate limit wait
+
+```bash
+omc wait --start   # Enable auto-resume daemon (requires tmux)
+omc wait --stop    # Disable
+```
+
+#### Requirements
+
+Claude Code CLI, Claude Max/Pro subscription or Anthropic API key.
+
+---
+
+### 👥 OpenSquad
+
+| | |
+|---|---|
+| **Repository** | [renatoasse/opensquad](https://github.com/renatoasse/opensquad) |
+| **Category** | Multi-Agent Orchestration · Squad Framework · IDE-Agnostic |
+| **License** | MIT |
+| **Language** | TypeScript (35%) / JavaScript (25%) / HTML (24%) / Python (15%) |
+
+#### What it does
+
+OpenSquad is a multi-agent orchestration framework that lets you create squads of AI agents that collaborate on tasks — directly from your IDE. You describe what you need in natural language, and OpenSquad creates a team of specialized agents (researcher, strategist, writer, reviewer, designer, etc.) that execute in a pipeline, pausing only at decision checkpoints where your input is needed.
+
+It supports multiple IDEs: Claude Code, Codex (OpenAI), Cursor, VS Code + Copilot, Open Code, and Antigravity.
+
+It also includes a **Virtual Office** — a 2D visual dashboard that shows your agents working in real time.
+
+#### Install
+
+**Prerequisite:** Node.js 20+
+
+```bash
+npx opensquad init
+```
+
+To update: `npx opensquad update`
+
+#### Usage
+
+```
+/opensquad                  # Open the main menu
+/opensquad create           # Create a new squad
+/opensquad run <name>       # Run a squad
+/opensquad list             # List your squads
+/opensquad edit <name>      # Modify a squad
+/opensquad skills           # Browse installed skills
+/opensquad install <name>   # Install a skill from catalog
+/opensquad dashboard        # Generate the Virtual Office dashboard
+```
+
+#### Virtual Office
+
+After generating the dashboard, serve it locally and open `http://localhost:3000`:
+
+```bash
+/opensquad dashboard
+npx serve squads/<squad-name>/dashboard
+```
+
+#### Example squad creation
+
+```
+/opensquad create "Squad that generates Instagram carousels from trending news, creates the images, and publishes automatically"
+```
+
+The **Architect** agent asks a few questions, designs the squad, and sets everything up. You approve the design before execution begins.
+
+---
+
+*Last updated: April 22, 2026*
