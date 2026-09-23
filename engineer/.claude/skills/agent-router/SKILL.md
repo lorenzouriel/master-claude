@@ -1,6 +1,6 @@
 ---
 name: agent-router
-description: Intelligent agent routing -- automatically matches tasks to the best specialist agent based on file patterns, intent keywords, and domain context. Loaded every session to give Claude explicit routing rules for all 67 AgentSpec agents.
+description: Intelligent agent routing -- automatically matches tasks to the best specialist agent based on file patterns, intent keywords, and domain context. Loaded every session to give Claude explicit routing rules for all 68 AgentSpec agents.
 ---
 
 <!-- =========================================================================
@@ -14,7 +14,7 @@ description: Intelligent agent routing -- automatically matches tasks to the bes
 
 Explicit routing rules for matching tasks to the correct specialist agent. Generated from each agent's frontmatter, so any change to an agent's `description`, `kb_domains`, or `escalation_rules` flows here automatically.
 
-**Agent count:** 67  |  **Categories:** 10  |  **Content hash:** `manual-edit` (generator script not present in this lab; hand-synced)
+**Agent count:** 68  |  **Categories:** 10  |  **Content hash:** `manual-edit` (generator script not present in this lab; hand-synced)
 
 ## A. Agents by Category
 
@@ -40,6 +40,7 @@ Explicit routing rules for matching tasks to the correct specialist agent. Gener
 | `ai-data-engineer-cloud` | T3 | sonnet | `gcp`, `aws`, `terraform`, `data-quality`, `cloud-platforms` | `ai-data-engineer-gcp`, `aws-data-architect`, `user` |
 | `ai-data-engineer-gcp` | T2 | sonnet | `gcp`, `terraform`, `cloud-platforms`, `data-quality` | `aws-data-architect`, `user` |
 | `ai-prompt-specialist-gcp` | T3 | sonnet | `prompt-engineering`, `genai`, `pydantic`, `gcp` | `gcp-data-architect`, `user` |
+| `aws-container-ops` | T2 | sonnet | `aws` | `aws-deployer`, `aws-lambda-architect`, `javascript-developer`, `ci-cd-specialist` |
 | `aws-data-architect` | T1 | sonnet | `aws`, `terraform`, `data-quality` | — |
 | `aws-deployer` | T3 | sonnet | `aws`, `terraform` | `aws-lambda-architect`, `ci-cd-specialist`, `user` |
 | `aws-lambda-architect` | T3 | sonnet | `aws`, `terraform` | `aws-deployer`, `lambda-builder`, `user` |
@@ -153,7 +154,7 @@ Which agents know which domain. Use this when the user names a technology.
 |-----------|--------|
 | `ai-data-engineering` | `ai-data-engineer`, `genai-architect`, `qdrant-specialist`, `supabase-specialist` |
 | `airflow` | `airflow-specialist`, `pipeline-architect` |
-| `aws` | `ai-data-engineer-cloud`, `aws-data-architect`, `aws-deployer`, `aws-lambda-architect`, `ci-cd-specialist`, `lambda-builder` |
+| `aws` | `ai-data-engineer-cloud`, `aws-container-ops`, `aws-data-architect`, `aws-deployer`, `aws-lambda-architect`, `ci-cd-specialist`, `lambda-builder` |
 | `cloud-platforms` | `ai-data-engineer-cloud`, `ai-data-engineer-gcp`, `data-platform-engineer`, `gcp-data-architect`, `spark-performance-analyzer`, `spark-specialist` |
 | `data-modeling` | `data-contracts-engineer`, `data-platform-engineer`, `data-quality-analyst`, `lakehouse-architect`, `medallion-architect`, `schema-designer`, `sql-optimizer`, `supabase-specialist` |
 | `data-quality` | `ai-data-engineer`, `ai-data-engineer-cloud`, `ai-data-engineer-gcp`, `airflow-specialist`, `aws-data-architect`, `code-reviewer`, `data-contracts-engineer`, `data-quality-analyst`, `dbt-specialist`, `gcp-data-architect`, `lakeflow-expert`, `lakeflow-pipeline-builder`, `lakeflow-specialist`, `medallion-architect`, `pipeline-architect`, `schema-designer`, `test-generator` |
@@ -187,6 +188,7 @@ Single-sentence purpose per agent, derived from frontmatter `description`.
 - **`ai-prompt-specialist`** — Prompt engineering specialist for LLMs — extraction, structured output, chain-of-thought, few-shot.
 - **`ai-prompt-specialist-gcp`** — Elite Prompt Engineering architect for Google Gemini, Vertex AI, and multi-modal document extraction systems. Masters structured extraction, OCR optimization, and production prompt pipelines. Uses KB + MCP validation.
 - **`airflow-specialist`** — Apache Airflow 3.0 SME for DAG development, asset-aware scheduling, and event-driven pipelines.
+- **`aws-container-ops`** — ECS Fargate container-service operator — task sizing, SQS retry/DLQ routing, ElastiCache Redis caching, CloudWatch EMF metrics, Docker multi-stage builds, and GitHub Actions CI for long-running Node/TypeScript consumers and services.
 - **`aws-data-architect`** — AWS data architecture specialist for Lambda, S3, Glue, Redshift, MWAA, and serverless data pipelines.
 - **`aws-deployer`** — Executes AWS CLI and SAM CLI deployment commands with validation. Uses KB + MCP validation for safe deployments.
 - **`aws-lambda-architect`** — Creates SAM templates with embedded least-privilege IAM policies. Uses KB + MCP validation for secure Lambda deployments.

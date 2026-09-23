@@ -3,7 +3,7 @@
 > The structured knowledge layer that grounds every agent response in verified, domain-specific content.
 
 ```
-27 domains | 326 files | 45,254+ lines | MCP-validated 2026-03-26 (project-management is not MCP-validated — house convention)
+27 domains | 336 files | 45,716+ lines | MCP-validated 2026-03-26 (project-management is not MCP-validated — house convention)
 ```
 
 ---
@@ -82,7 +82,7 @@ Some domains extend this with additional directories:
 | lakehouse | 10 | Iceberg v3, Delta Lake 4.1, DuckLake, Unity, Gravitino | lakehouse-architect, data-platform-engineer, lakeflow-architect, lakeflow-expert, lakeflow-pipeline-builder, lakeflow-specialist, spark-streaming-architect, spark-performance-analyzer |
 | medallion | 10 | Bronze/Silver/Gold layer design, quality progression | medallion-architect, lakeflow-architect, lakeflow-expert, lakeflow-pipeline-builder |
 | cloud-platforms | 10 | Snowflake Cortex, Databricks LakeFlow, BigQuery AI | data-platform-engineer, ai-data-engineer-cloud, ai-data-engineer-gcp, gcp-data-architect, spark-specialist, spark-performance-analyzer |
-| aws | 20 | Lambda, S3, Glue, SAM deployment, IAM, Layers | aws-deployer, aws-lambda-architect, aws-data-architect, lambda-builder, ci-cd-specialist, ai-data-engineer-cloud |
+| aws | 30 | Lambda, S3, Glue, SAM deployment, IAM, Layers, ECS Fargate/SQS/ElastiCache/CloudWatch containers | aws-deployer, aws-lambda-architect, aws-data-architect, lambda-builder, ci-cd-specialist, ai-data-engineer-cloud, aws-container-ops |
 | gcp | 13 | Cloud Run, Pub/Sub, GCS, BigQuery, IAM, Secret Manager | ai-data-engineer-gcp, ai-prompt-specialist-gcp, gcp-data-architect, ai-data-engineer-cloud |
 | microsoft-fabric | 53 | Lakehouse, Warehouse, Pipelines, KQL, CI/CD, AI, Security | fabric-architect, fabric-pipeline-developer, fabric-logging-specialist, fabric-cicd-specialist, fabric-security-specialist, fabric-ai-specialist |
 | lakeflow | 23 | DLT pipelines, materialized views, streaming tables, DABs | lakeflow-architect, lakeflow-expert, lakeflow-pipeline-builder, lakeflow-specialist, ci-cd-specialist |
@@ -134,13 +134,14 @@ Each agent declares a `kb_domains` field in its frontmatter that determines whic
 | schema-designer | data-modeling, sql-patterns, data-quality |
 | the-planner | (none -- strategic planning) |
 
-**Cloud agents** (10 agents in `.claude/agents/cloud/`):
+**Cloud agents** (11 agents in `.claude/agents/cloud/`):
 
 | Agent | KB Domains |
 |-------|------------|
 | ai-data-engineer-cloud | gcp, aws, terraform, data-quality, cloud-platforms |
 | ai-data-engineer-gcp | gcp, terraform, cloud-platforms, data-quality |
 | ai-prompt-specialist-gcp | prompt-engineering, genai, pydantic, gcp |
+| aws-container-ops | aws |
 | aws-data-architect | aws, terraform, data-quality |
 | aws-deployer | aws, terraform |
 | aws-lambda-architect | aws, terraform |

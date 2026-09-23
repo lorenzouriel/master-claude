@@ -1,8 +1,8 @@
 # AgentSpec Agents
 
-AgentSpec deploys **67 specialized agents** across **10 categories**, each built on a **three-tier template system** with mandatory **KB-First knowledge resolution**. Every agent carries a cognitive framework that enforces structured confidence scoring, provenance tracking, and explicit stop conditions -- turning raw LLM capability into disciplined, auditable domain expertise.
+AgentSpec deploys **68 specialized agents** across **10 categories**, each built on a **three-tier template system** with mandatory **KB-First knowledge resolution**. Every agent carries a cognitive framework that enforces structured confidence scoring, provenance tracking, and explicit stop conditions -- turning raw LLM capability into disciplined, auditable domain expertise.
 
-`67 agents | 10 categories | 3 tiers (T1/T2/T3) | 27 KB domains | 100% template compliance`
+`68 agents | 10 categories | 3 tiers (T1/T2/T3) | 27 KB domains | 100% template compliance`
 
 ---
 
@@ -87,7 +87,7 @@ Every agent declares a tier in frontmatter (`tier: T1|T2|T3`). The tier governs 
 ### Current Distribution
 
 - **T1 (11 agents):** genai-architect, medallion-architect, aws-data-architect, gcp-data-architect, ai-prompt-specialist, python-developer, lakeflow-specialist, spark-performance-analyzer, spark-troubleshooter, prompt-crafter, dotnet-developer
-- **T2 (35 agents):** data-platform-engineer, kb-architect, lakehouse-architect, pipeline-architect, schema-designer, the-planner, ai-data-engineer-gcp, code-cleaner, code-documenter, code-reviewer, javascript-developer, data-contracts-engineer, data-quality-analyst, test-generator, ai-data-engineer, dbt-specialist, spark-engineer, spark-specialist, sql-optimizer, sql-server-specialist, sql-server-dba, streaming-engineer, codebase-explorer, meeting-analyst, shell-script-specialist, project-docs-manager, brainstorm-agent, build-agent, define-agent, design-agent, iterate-agent, ship-agent, dotnet-code-reviewer, dotnet-code-cleaner, dotnet-code-documenter
+- **T2 (36 agents):** data-platform-engineer, kb-architect, lakehouse-architect, pipeline-architect, schema-designer, the-planner, ai-data-engineer-gcp, code-cleaner, code-documenter, code-reviewer, javascript-developer, data-contracts-engineer, data-quality-analyst, test-generator, ai-data-engineer, dbt-specialist, spark-engineer, spark-specialist, sql-optimizer, sql-server-specialist, sql-server-dba, streaming-engineer, codebase-explorer, meeting-analyst, shell-script-specialist, project-docs-manager, brainstorm-agent, build-agent, define-agent, design-agent, iterate-agent, ship-agent, dotnet-code-reviewer, dotnet-code-cleaner, dotnet-code-documenter, aws-container-ops
 - **T3 (21 agents):** ai-data-engineer-cloud, ai-prompt-specialist-gcp, aws-deployer, aws-lambda-architect, ci-cd-specialist, lambda-builder, supabase-specialist, fabric-ai-specialist, fabric-architect, fabric-cicd-specialist, fabric-logging-specialist, fabric-pipeline-developer, fabric-security-specialist, llm-specialist, airflow-specialist, lakeflow-architect, lakeflow-expert, lakeflow-pipeline-builder, qdrant-specialist, spark-streaming-architect, dotnet-specialist
 
 ---
@@ -145,12 +145,13 @@ System-level design and architecture decisions.
 | `schema-designer` | T2 | sonnet | Dimensional modeling, SCD, Data Vault |
 | `data-platform-engineer` | T2 | sonnet | Snowflake, Databricks, BigQuery, cost optimization |
 
-### 2. Cloud (10 agents)
+### 2. Cloud (11 agents)
 
 Cloud provider services, deployment, and CI/CD.
 
 | Agent | Tier | Model | Purpose |
 |-------|------|-------|---------|
+| `aws-container-ops` | T2 | sonnet | ECS Fargate sizing, SQS retry/DLQ, ElastiCache Redis, CloudWatch EMF, Docker, GitHub Actions CI |
 | `aws-data-architect` | T1 | sonnet | Lambda, S3, Glue, Redshift, MWAA, serverless pipelines |
 | `aws-deployer` | T3 | sonnet | SAM, CloudFormation, CI/CD, Terraform for AWS |
 | `aws-lambda-architect` | T3 | sonnet | SAM templates, least-privilege IAM policies |
@@ -314,6 +315,14 @@ Data Engineering <-> Data Engineering:
   spark-troubleshooter <-> spark-performance-analyzer (debug vs optimize)
   ai-data-engineer <-> streaming-engineer (real-time embeddings)
   data-contracts-engineer <-> data-quality-analyst (enforcement)
+
+Cloud <-> Cloud:
+  aws-container-ops -> aws-deployer (Terraform authoring/apply beyond container config)
+  aws-container-ops -> aws-lambda-architect (task is actually Lambda, not a long-running container)
+  aws-container-ops -> ci-cd-specialist (CI/CD on Azure DevOps/DABs rather than GitHub Actions)
+
+Cloud <-> Python/JavaScript:
+  aws-container-ops -> javascript-developer (core Node/TS application logic vs. container/queue/cache infra)
 
 Cloud <-> Data Engineering:
   aws-data-architect -> pipeline-architect (MWAA), spark-engineer (Glue)

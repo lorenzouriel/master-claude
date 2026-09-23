@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "agent_count": 67,
+  "agent_count": 68,
   "agents": [
     {
       "name": "ai-data-engineer",
@@ -107,6 +107,23 @@
         "spark-engineer",
         "dbt-specialist",
         "streaming-engineer"
+      ]
+    },
+    {
+      "name": "aws-container-ops",
+      "category": "cloud",
+      "path": ".claude/agents/cloud/aws-container-ops.md",
+      "tier": "T2",
+      "model": "sonnet",
+      "description": "ECS Fargate container-service operator — task sizing, SQS retry/DLQ routing, ElastiCache Redis caching, CloudWatch EMF metrics, Docker multi-stage builds, and GitHub Actions CI for long-running Node/TypeScript consumers and services.",
+      "kb_domains": [
+        "aws"
+      ],
+      "escalates_to": [
+        "aws-deployer",
+        "aws-lambda-architect",
+        "javascript-developer",
+        "ci-cd-specialist"
       ]
     },
     {

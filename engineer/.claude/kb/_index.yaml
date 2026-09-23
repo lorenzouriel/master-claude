@@ -502,9 +502,9 @@ domains:
 
   aws:
     name: aws
-    description: "AWS data engineering — Lambda, S3, Glue, Redshift, MWAA, SAM deployment"
+    description: "AWS data engineering and container ops — Lambda, S3, Glue, Redshift, MWAA, SAM deployment, ECS Fargate, SQS, ElastiCache, CloudWatch EMF"
     path: aws/
-    mcp_validated: "2026-03-26"
+    mcp_validated: "2026-09-17"
     entry_points:
       index: index.md
       quick_reference: lambda/quick-reference.md
@@ -533,6 +533,18 @@ domains:
       - name: environments
         path: deployment/concepts/environments.md
         confidence: 0.90
+      - name: ecs-fargate
+        path: containers/concepts/ecs-fargate.md
+        confidence: 0.90
+      - name: sqs-queues
+        path: containers/concepts/sqs-queues.md
+        confidence: 0.90
+      - name: elasticache-redis
+        path: containers/concepts/elasticache-redis.md
+        confidence: 0.90
+      - name: cloudwatch-observability
+        path: containers/concepts/cloudwatch-observability.md
+        confidence: 0.85
     patterns:
       - name: file-processing
         path: lambda/patterns/file-processing.md
@@ -555,6 +567,18 @@ domains:
       - name: local-testing
         path: deployment/patterns/local-testing.md
         confidence: 0.90
+      - name: docker-multistage-build
+        path: containers/patterns/docker-multistage-build.md
+        confidence: 0.90
+      - name: sqs-retry-dlq
+        path: containers/patterns/sqs-retry-dlq.md
+        confidence: 0.90
+      - name: redis-caching
+        path: containers/patterns/redis-caching.md
+        confidence: 0.90
+      - name: github-actions-ci
+        path: containers/patterns/github-actions-ci.md
+        confidence: 0.85
 
   gcp:
     name: gcp

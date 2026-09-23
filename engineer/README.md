@@ -6,7 +6,7 @@ master-claude / AgentSpec — the software-engineering config for Claude Code. S
 
 | Path | Contents |
 |------|----------|
-| `.claude/agents/` | 67 domain sub-agents across architect, cloud (AWS/GCP), data-engineering (incl. SQL Server), dev, platform (Microsoft Fabric), python, javascript, dotnet, test, workflow |
+| `.claude/agents/` | 68 domain sub-agents across architect, cloud (AWS/GCP), data-engineering (incl. SQL Server), dev, platform (Microsoft Fabric), python, javascript, dotnet, test, workflow |
 | `.claude/commands/` | 35 slash commands: 5-phase SDD workflow, data-engineering, code review, visual-explainer, core utilities |
 | `.claude/kb/` | 27 registered knowledge-base domains (dbt, spark, airflow, lakehouse, medallion, microsoft-fabric, terraform, streaming, sql-patterns, prompt-engineering, javascript, dotnet, ...) |
 | `.claude/sdd/` | SDD workflow artifacts — `features/` (active), `reports/` (build outputs), `archive/` (shipped), `templates/`, `architecture/` |
