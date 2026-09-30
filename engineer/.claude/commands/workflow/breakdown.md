@@ -1,7 +1,7 @@
 ---
 description: Decompose an approved feature (brainstorm + define + design) into implementation-ready stories with Description, Actual Plan, Architecture, and Acceptance Criteria
 argument-hint: [feature-name]
-allowed-tools: Read, Grep, Glob, Bash(git log:*), Bash(git diff:*)
+allowed-tools: Read, Write, Grep, Glob, Bash(git log:*), Bash(git diff:*), Bash(python .claude/skills/sdd-board/board.py:*)
 ---
 
 # /workflow:breakdown
@@ -10,7 +10,7 @@ You are running the **breakdown** phase of the SDD workflow:
 
 `/workflow:brainstorm → define → design → breakdown → build → ship`
 
-Breakdown converts the approved design into a dependency-ordered set of stories. Each story must be independently implementable, independently mergeable, and specific enough that `/workflow:build` can execute it without re-reading the design doc.
+Breakdown converts the approved design into a dependency-ordered set of stories, written as **task files on the SDD board** (`.claude/skills/sdd-board/SKILL.md` owns the file contract, statuses, and script). Each story must be independently implementable, independently mergeable, and specific enough that `/workflow:build` can execute it without re-reading the design doc.
 
 ## Inputs
 
@@ -52,7 +52,24 @@ When a plan step depends on an unresolved open question from `define.md`:
 
 ## Output format
 
-Write to `sdd/features/$ARGUMENTS/stories.md`. For **each** story, produce exactly these four sections:
+Write **one task file per story** to `sdd/board/$ARGUMENTS/S{NN}-{slug}.md` (there is no `stories.md`; the board is the source of truth). Each file starts with board frontmatter, then exactly the four sections below.
+
+Frontmatter (flat `key: value`, per the `sdd-board` skill):
+
+```yaml
+---
+id: S01
+feature: $ARGUMENTS
+title: "<short imperative title>"
+status: ready        # ready when depends_on is empty, else backlog
+depends_on: []       # e.g. [S01, S03] — must mirror the prose dependencies
+agent: <specialist from the DESIGN file manifest, or empty>
+files: [<primary files touched>]
+updated: <today, YYYY-MM-DD>
+---
+```
+
+For **each** story, the body is exactly these four sections (the `## Story N:` heading is replaced by the frontmatter `title`):
 
 ```markdown
 ## Story N: <short imperative title> (<primary files touched>)
@@ -97,8 +114,9 @@ Every criterion must be falsifiable by reading a diff or running the test suite.
 
 ## After writing
 
-1. Print a one-line summary table: story number, title, files touched, depends-on.
-2. List every open-question flag embedded in the stories so the user can resolve them at `/define` in one pass.
-3. Ask whether to proceed to `/workflow:build` with Story 1 or revise.
+1. Run `python .claude/skills/sdd-board/board.py check $ARGUMENTS`. It must print `ok` — fix cycles, unknown ids, or dependency mismatches before continuing.
+2. Run `board.py show $ARGUMENTS` and print it, plus a one-line summary table: story id, title, files touched, depends-on.
+3. List every open-question flag embedded in the stories so the user can resolve them at `/define` in one pass.
+4. Ask whether to proceed to `/workflow:build` (it starts from `board.py next`) or revise.
 
-Do NOT start implementing. Breakdown ends at `stories.md`.
+Do NOT start implementing. Breakdown ends with a passing board. If a board already exists for the feature, do not overwrite tasks that are past `backlog`/`ready`: reconcile — add new tasks, and mark stale ones `blocked` with `--note`.

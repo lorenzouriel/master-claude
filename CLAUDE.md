@@ -10,7 +10,7 @@ Keep: code blocks, error messages, technical terms, file paths, git output.
 
 ## What This Repo Is
 
-claude-lab is a laboratory for Claude Code configurations. There is no application code — everything is markdown (skills, agents, commands, knowledge base). There are no build, lint, or test commands.
+master-claude is a laboratory for Claude Code configurations. There is no application code — everything is markdown (skills, agents, commands, knowledge base). There are no build, lint, or test commands.
 
 The repo is organized as **self-contained domain folders**, each carrying its own `.claude/` config. You get a domain's skills by opening Claude Code inside that folder. The repo root has no active skills (`.claude/` at the root holds only local settings) — root sessions are for maintaining the lab itself.
 

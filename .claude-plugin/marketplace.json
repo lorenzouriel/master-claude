@@ -1,5 +1,5 @@
 {
-  "name": "claude-lab",
+  "name": "master-claude",
   "description": "Lorenzo Uriel's Claude Code configs: CompanyOS business skills and AgentSpec software engineering.",
   "owner": {
     "name": "Lorenzo Uriel",
@@ -12,7 +12,7 @@
       "description": "CompanyOS — skill-driven business operating system: 18 hub skills (content, social platforms, strategy, growth, fundraising, metrics, formats, ...) with 112 sub-skills.",
       "category": "business",
       "tags": ["business", "content", "marketing", "social-media", "strategy"],
-      "repository": "https://github.com/lorenzouriel/claude-lab"
+      "repository": "https://github.com/lorenzouriel/master-claude"
     },
     {
       "name": "engineer",
@@ -20,7 +20,7 @@
       "description": "master-claude / AgentSpec — software-engineering config: domain sub-agents, 5-phase SDD workflow commands, data-engineering knowledge base, diagramming and code-review skills.",
       "category": "engineering",
       "tags": ["data-engineering", "sdd", "spark", "dbt", "airflow", "agents"],
-      "repository": "https://github.com/lorenzouriel/claude-lab"
+      "repository": "https://github.com/lorenzouriel/master-claude"
     }
   ]
 }

@@ -24,7 +24,7 @@ Inputs to read in every mode:
 - `sdd/features/<feature>/brainstorm.md`
 - `sdd/features/<feature>/define.md`
 - `sdd/features/<feature>/design.md`
-- `sdd/features/<feature>/stories.md` (or `stories/` + manifest)
+- `sdd/board/<feature>/S*.md` (the stories; task files are the source of truth, statuses via `board.py show <feature>`)
 - The current working tree for every file the stories reference
 
 ---
@@ -68,7 +68,7 @@ For every story plan step, trace it back to a design/define section. Steps with 
 
 Goal: prove the implementation is exactly what the stories promised — each criterion verified against real code, not against the builder's summary.
 
-Scope: stories marked done/merged. Use `git log`/`git diff` to locate the implementing commits when helpful, but the source of truth is the current tree.
+Scope: tasks with `status: done` or `review` on the board (`board.py show <feature>`); also run `board.py check <feature>` and report any problem it prints as a finding. Use `git log`/`git diff` to locate the implementing commits when helpful, but the source of truth is the current tree.
 
 ### B1. Acceptance criteria, one by one
 For every checkbox in every done story, verify it against the code and record a verdict with evidence:

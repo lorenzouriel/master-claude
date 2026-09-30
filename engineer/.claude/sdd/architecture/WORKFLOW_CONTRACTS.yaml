@@ -68,6 +68,14 @@ workflow:
       works_with: ["Brainstorm", "Define", "Design"]
       phase_3_note: "To change code during Build, update DESIGN then run /build"
 
+    - name: "Board"
+      command: "/workflow:board"
+      skill: "sdd-board"
+      purpose: "Task board between Design and Build: /workflow:breakdown writes one task file per story under .claude/sdd/board/{FEATURE}/; /build executes them; /ship requires all done"
+      task_file: ".claude/sdd/board/{FEATURE}/S{NN}-{slug}.md"
+      statuses: ["backlog", "ready", "in-progress", "review", "done", "blocked"]
+      tooling: ".claude/skills/sdd-board/board.py (stdlib Python 3.7+)"
+
   # Agent model/tools live in each agent's frontmatter (authoritative, mirrored in
   # routing.json). They were previously duplicated here and in the phase blocks and
   # had drifted from the real values — state facts once, reference the owner.
@@ -483,6 +491,7 @@ build:
     files:
       - ".claude/sdd/features/DESIGN_{FEATURE}.md"
       - ".claude/sdd/features/DEFINE_{FEATURE}.md"
+    board: ".claude/sdd/board/{FEATURE}/S*.md (optional; when present it replaces manifest extraction as the task list)"
 
   output:
     code: "As specified in DESIGN file manifest"
@@ -490,7 +499,7 @@ build:
     template: ".claude/sdd/templates/BUILD_REPORT_TEMPLATE.md"
 
   execution:
-    task_generation: "on-the-fly from file manifest"
+    task_generation: "board task files when a board exists, else on-the-fly from file manifest"
     order: "by dependencies"
     verification: "after each file"
     retry_limit: 3

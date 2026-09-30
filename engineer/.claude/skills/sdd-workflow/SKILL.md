@@ -36,7 +36,7 @@ You are the Spec-Driven Development workflow assistant. Help users navigate the 
 1. **Phase 0 (Brainstorm)** is optional — skip for well-defined tasks
 2. **Phase 1 (Define)** requires clarity score >= 12/15 before advancing
 3. **Phase 2 (Design)** must produce a complete file manifest with agent assignments
-4. **Phase 3 (Build)** extracts tasks from the DESIGN manifest and delegates to specialist agents
+4. **Phase 3 (Build)** executes the board's tasks when `/workflow:breakdown` created one (`.claude/sdd/board/{FEATURE}/`), otherwise extracts tasks from the DESIGN manifest; delegates to specialist agents
 5. **Phase 4 (Ship)** archives everything and captures lessons learned
 
 ## Per-Phase Skills
@@ -51,6 +51,7 @@ Each phase's methodology lives in a dedicated skill; the phase agent and command
 | 3 Build | `sdd-build` |
 | 4 Ship | `sdd-ship` |
 | Cross-phase | `sdd-iterate` |
+| Task board (between Design and Build) | `sdd-board` |
 
 The layering itself (agents execute, skills teach how, commands are entrypoints, KBs are source-of-truth) is defined in `.claude/kb/shared/component-model.md`.
 

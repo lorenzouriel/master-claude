@@ -49,7 +49,7 @@ defined in `.claude/agents/workflow/build-agent.md`. The skill owns the
 methodology for Steps 1-6; Step 7 is command-only.
 
 1. **Load Context** — DESIGN, DEFINE, CLAUDE.md
-2. **Extract Tasks** — convert the file manifest to a task list
+2. **Extract Tasks** — if `.claude/sdd/board/{FEATURE}/` exists, the board's task files are the task list (see the `sdd-board` skill); otherwise convert the file manifest to a task list
 3. **Order by Dependencies** — determine execution order
 4. **Execute Each Task** — write or delegate, verify, retry (max 3)
 5. **Run Full Validation** — lint, types, tests across the codebase

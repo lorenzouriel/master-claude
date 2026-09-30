@@ -85,6 +85,8 @@ Read(.claude/sdd/reports/BUILD_REPORT_{FEATURE}.md)
 
 Run the verification order above. Confidence below 0.85 → do not proceed.
 
+If `.claude/sdd/board/{FEATURE}/` exists, run `python .claude/skills/sdd-board/board.py check {FEATURE}` and `board.py show {FEATURE}`: every task must be `done`. Any task in another status blocks shipping — report it, do not force it.
+
 ### Step 2 — Create archive folder
 
 ```bash
@@ -97,6 +99,12 @@ mkdir -p .claude/sdd/archive/{FEATURE_NAME}/
 cp .claude/sdd/features/DEFINE_{FEATURE}.md .claude/sdd/archive/{FEATURE}/
 cp .claude/sdd/features/DESIGN_{FEATURE}.md .claude/sdd/archive/{FEATURE}/
 cp .claude/sdd/reports/BUILD_REPORT_{FEATURE}.md .claude/sdd/archive/{FEATURE}/
+```
+
+If a board exists, archive it (task files and `_log.md`; regenerate `BOARD.html` first with `board.py html {FEATURE}`):
+
+```bash
+cp -r .claude/sdd/board/{FEATURE} .claude/sdd/archive/{FEATURE}/board
 ```
 
 If Phase 0 was used, also archive the brainstorm:
@@ -152,6 +160,8 @@ rm .claude/sdd/features/DEFINE_{FEATURE}.md
 rm .claude/sdd/features/DESIGN_{FEATURE}.md
 rm .claude/sdd/reports/BUILD_REPORT_{FEATURE}.md
 ```
+
+If the board was archived in Step 3, remove the working board: `rm -r .claude/sdd/board/{FEATURE}`.
 
 If a BRAINSTORM was archived in Step 3, remove its working copy too:
 

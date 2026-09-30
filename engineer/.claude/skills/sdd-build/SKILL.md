@@ -71,7 +71,26 @@ Read(CLAUDE.md)
 Extract from the DESIGN: the file manifest, code patterns, agent assignments, and
 the KB domains to load.
 
-### Step 2: Extract Tasks from the File Manifest
+### Step 2: Extract Tasks
+
+**Board present** (`.claude/sdd/board/{FEATURE}/` exists — created by `/breakdown`): the board is the task list. Follow `.claude/skills/sdd-board/SKILL.md` and skip manifest extraction:
+
+```bash
+python .claude/skills/sdd-board/board.py check {FEATURE}        # must print ok, else stop and report
+python .claude/skills/sdd-board/board.py next  {FEATURE}        # unblocked tasks
+python .claude/skills/sdd-board/board.py move  {FEATURE} S01 in-progress
+# implement per the task's Actual Plan, delegate per its `agent:`, verify
+# tick every Acceptance Criteria checkbox in the task file
+python .claude/skills/sdd-board/board.py move  {FEATURE} S01 review
+# run the per-task verification (see Verification) -> pass
+python .claude/skills/sdd-board/board.py move  {FEATURE} S01 done
+```
+
+Rules: one task `in-progress` at a time unless `next` lists several independent tasks and they are delegated in parallel; never edit `status:` by hand; a task that fails verification 3 times moves to `blocked` with `--note` stating the failure, and the build continues with tasks that do not depend on it. Steps 3-4 below then operate per task rather than per manifest file, and Step 6 lists task ids and final board state (`board.py show`) in the BUILD_REPORT.
+
+**No board**: generate from the manifest as before.
+
+#### Manifest extraction (no board)
 
 Convert the manifest to a task list — tasks are generated on-the-fly, not
 pre-written:

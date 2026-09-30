@@ -118,6 +118,19 @@ updates, and present options to the user before applying anything downstream.
 | New decision | May need refactor |
 | Architecture change | Significant refactor |
 
+**DESIGN → BOARD** (when `.claude/sdd/board/{FEATURE}/` exists):
+
+| DESIGN/DEFINE Change | BOARD Impact |
+|----------------------|--------------|
+| New file/component | Needs a new task — route to `/breakdown` to reconcile |
+| Removed file/component | Owning task no longer valid |
+| Changed pattern or agent | Owning task's plan/`agent:` is stale |
+
+Never edit task files during iterate. For each affected task not yet `done`, run
+`python .claude/skills/sdd-board/board.py move {FEATURE} {ID} blocked --note "DESIGN changed: <why>"`
+after user confirmation, and tell the user to run `/breakdown` to reconcile. Tasks already `done`
+whose code is invalidated are reported, not reopened.
+
 Code-level cascades are never hand-applied: the DESIGN update is the deliverable here, and the
 rebuild routes through `/build` (escalation to build-agent).
 

@@ -54,6 +54,8 @@ BRAINSTORM_*.md
 | `/ship` | 4 | Archive with lessons learned | `sdd-ship` |
 | `/iterate` | Any | Update documents when changes needed | `sdd-iterate` |
 | `/create-pr` | -- | Create pull request | -- |
+| `/workflow:breakdown` | 2.5 | Decompose design into board task files | -- |
+| `/workflow:board` | 2.5-4 | Show/drive the task board (`next`, `move`, `check`, `html`) | `sdd-board` |
 
 ### Data Engineering (8)
 
@@ -88,6 +90,7 @@ BRAINSTORM_*.md
 | `BRAINSTORM_{FEATURE}.md` | 0 | `.claude/sdd/features/` |
 | `DEFINE_{FEATURE}.md` | 1 | `.claude/sdd/features/` |
 | `DESIGN_{FEATURE}.md` | 2 | `.claude/sdd/features/` |
+| `S{NN}-{slug}.md` (task) | 2.5 | `.claude/sdd/board/{FEATURE}/` |
 | `BUILD_REPORT_{FEATURE}.md` | 3 | `.claude/sdd/reports/` |
 | `SHIPPED_{DATE}.md` | 4 | `.claude/sdd/archive/{FEATURE}/` |
 
@@ -149,6 +152,10 @@ BRAINSTORM_*.md
 |   +-- BRAINSTORM_{FEATURE}.md
 |   +-- DEFINE_{FEATURE}.md
 |   +-- DESIGN_{FEATURE}.md
++-- board/                       # Task board (created by /workflow:breakdown)
+|   +-- {FEATURE}/
+|       +-- S{NN}-{slug}.md      # one task per story: status, depends_on, agent
+|       +-- _log.md              # audit trail of status moves
 +-- reports/                     # Build reports
 |   +-- BUILD_REPORT_{FEATURE}.md
 +-- archive/                     # Shipped features
@@ -157,6 +164,7 @@ BRAINSTORM_*.md
 |       +-- DEFINE_{FEATURE}.md
 |       +-- DESIGN_{FEATURE}.md
 |       +-- BUILD_REPORT_{FEATURE}.md
+|       +-- board/               (if a board was used)
 |       +-- SHIPPED_{DATE}.md
 +-- templates/                   # Document templates
 |   +-- BRAINSTORM_TEMPLATE.md

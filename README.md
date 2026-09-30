@@ -2,7 +2,7 @@
   <img src="docs/master-claude.png" alt="logo" width="300">
 </div>
 
-# claude-lab
+# master-claude
 
 > A laboratory for Claude Code configurations. Everything here is markdown — skills, agents, commands, knowledge base. No application code, no build, no tests.
 
@@ -11,7 +11,7 @@
 ## Layout
 
 ```
-claude-lab/
+master-claude/
 ├── company/               ← CompanyOS: business operating system + workspace template
 │   ├── .claude/skills/    ← THE skill tree (18 hubs, 112 skills) — single source of truth
 │   ├── CLAUDE.md          ← CompanyOS operating rules
@@ -33,13 +33,13 @@ Each domain folder is **self-contained**: it carries its own `.claude/` config, 
 The repo doubles as a **Claude Code plugin marketplace** ([.claude-plugin/marketplace.json](.claude-plugin/marketplace.json)). Each domain config installs independently, into any project, with updates pulled from this repo:
 
 ```
-/plugin marketplace add lorenzouriel/claude-lab
+/plugin marketplace add lorenzouriel/master-claude
 
-/plugin install company-os@claude-lab       # 18 hub skills, 112 sub-skills
-/plugin install engineer@claude-lab         # domain agents + SDD commands + KB
+/plugin install company-os@master-claude    # 18 hub skills, 112 sub-skills
+/plugin install engineer@master-claude      # domain agents + SDD commands + KB
 ```
 
-Update later with `/plugin marketplace update claude-lab`. Plugin components are namespaced (e.g. `/engineer:review`).
+Update later with `/plugin marketplace update master-claude`. Plugin components are namespaced (e.g. `/engineer:review`).
 
 Note: the **company-os plugin ships the skills only**. For a full business workspace (CLAUDE.md operating rules, `memory/`, `brain/`, `output/`), copy the `company/` folder instead — see [Spinning Up a Business Workspace](#spinning-up-a-business-workspace).
 
