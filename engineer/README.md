@@ -10,7 +10,7 @@ master-claude / AgentSpec — the software-engineering config for Claude Code. S
 | `.claude/commands/` | 35 slash commands: 5-phase SDD workflow, data-engineering, code review, visual-explainer, core utilities |
 | `.claude/kb/` | 27 registered knowledge-base domains (dbt, spark, airflow, lakehouse, medallion, microsoft-fabric, terraform, streaming, sql-patterns, prompt-engineering, javascript, dotnet, ...) |
 | `.claude/sdd/` | SDD workflow artifacts — `features/` (active), `reports/` (build outputs), `archive/` (shipped), `templates/`, `architecture/` |
-| `.claude/skills/` | 26 skills: SDD phase methodology, agent-router, create-agent/create-skill, kb-build, diagramming, github issue/ADR flow, project-docs, meeting-analysis, standup-report, sycophancy, ... |
+| `.claude/skills/` | 29 skills: SDD phase methodology, agent-router, create-agent/create-skill, kb-build, kb-coverage-audit, appsec-review, cloud-finops, diagramming, github issue/ADR flow, project-docs, meeting-analysis, standup-report, sycophancy, ... |
 
 ## Quick start — SDD workflow
 
