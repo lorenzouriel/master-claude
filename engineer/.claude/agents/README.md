@@ -1,8 +1,8 @@
 # AgentSpec Agents
 
-AgentSpec deploys **68 specialized agents** across **10 categories**, each built on a **three-tier template system** with mandatory **KB-First knowledge resolution**. Every agent carries a cognitive framework that enforces structured confidence scoring, provenance tracking, and explicit stop conditions -- turning raw LLM capability into disciplined, auditable domain expertise.
+AgentSpec deploys **71 specialized agents** across **10 categories**, each built on a **three-tier template system** with mandatory **KB-First knowledge resolution**. Every agent carries a cognitive framework that enforces structured confidence scoring, provenance tracking, and explicit stop conditions -- turning raw LLM capability into disciplined, auditable domain expertise.
 
-`68 agents | 10 categories | 3 tiers (T1/T2/T3) | 27 KB domains | 100% template compliance`
+`71 agents | 10 categories | 3 tiers (T1/T2/T3) | 32 KB domains | 100% template compliance`
 
 ---
 
@@ -87,7 +87,7 @@ Every agent declares a tier in frontmatter (`tier: T1|T2|T3`). The tier governs 
 ### Current Distribution
 
 - **T1 (11 agents):** genai-architect, medallion-architect, aws-data-architect, gcp-data-architect, ai-prompt-specialist, python-developer, lakeflow-specialist, spark-performance-analyzer, spark-troubleshooter, prompt-crafter, dotnet-developer
-- **T2 (36 agents):** data-platform-engineer, kb-architect, lakehouse-architect, pipeline-architect, schema-designer, the-planner, ai-data-engineer-gcp, code-cleaner, code-documenter, code-reviewer, javascript-developer, data-contracts-engineer, data-quality-analyst, test-generator, ai-data-engineer, dbt-specialist, spark-engineer, spark-specialist, sql-optimizer, sql-server-specialist, sql-server-dba, streaming-engineer, codebase-explorer, meeting-analyst, shell-script-specialist, project-docs-manager, brainstorm-agent, build-agent, define-agent, design-agent, iterate-agent, ship-agent, dotnet-code-reviewer, dotnet-code-cleaner, dotnet-code-documenter, aws-container-ops
+- **T2 (39 agents):** data-platform-engineer, kb-architect, lakehouse-architect, pipeline-architect, schema-designer, the-planner, ai-data-engineer-gcp, code-cleaner, code-documenter, code-reviewer, javascript-developer, data-contracts-engineer, data-quality-analyst, test-generator, ai-data-engineer, dbt-specialist, spark-engineer, spark-specialist, sql-optimizer, sql-server-specialist, sql-server-dba, streaming-engineer, codebase-explorer, meeting-analyst, shell-script-specialist, project-docs-manager, brainstorm-agent, build-agent, define-agent, design-agent, iterate-agent, ship-agent, dotnet-code-reviewer, dotnet-code-cleaner, dotnet-code-documenter, aws-container-ops, fastapi-backend-specialist, react-frontend-specialist, aws-app-platform-specialist
 - **T3 (21 agents):** ai-data-engineer-cloud, ai-prompt-specialist-gcp, aws-deployer, aws-lambda-architect, ci-cd-specialist, lambda-builder, supabase-specialist, fabric-ai-specialist, fabric-architect, fabric-cicd-specialist, fabric-logging-specialist, fabric-pipeline-developer, fabric-security-specialist, llm-specialist, airflow-specialist, lakeflow-architect, lakeflow-expert, lakeflow-pipeline-builder, qdrant-specialist, spark-streaming-architect, dotnet-specialist
 
 ---
@@ -145,7 +145,7 @@ System-level design and architecture decisions.
 | `schema-designer` | T2 | sonnet | Dimensional modeling, SCD, Data Vault |
 | `data-platform-engineer` | T2 | sonnet | Snowflake, Databricks, BigQuery, cost optimization |
 
-### 2. Cloud (11 agents)
+### 2. Cloud (12 agents)
 
 Cloud provider services, deployment, and CI/CD.
 
@@ -155,6 +155,7 @@ Cloud provider services, deployment, and CI/CD.
 | `aws-data-architect` | T1 | sonnet | Lambda, S3, Glue, Redshift, MWAA, serverless pipelines |
 | `aws-deployer` | T3 | sonnet | SAM, CloudFormation, CI/CD, Terraform for AWS |
 | `aws-lambda-architect` | T3 | sonnet | SAM templates, least-privilege IAM policies |
+| `aws-app-platform-specialist` | T2 | sonnet | Cognito, SES, S3 presigned uploads + KMS/GuardDuty, EC2 + SSM, Route 53, IAM, GitHub Actions deploys |
 | `lambda-builder` | T3 | sonnet | Python Lambda handlers, S3-triggered functions |
 | `gcp-data-architect` | T1 | sonnet | BigQuery, Cloud Run, Pub/Sub, Dataflow, Vertex AI |
 | `ai-data-engineer-gcp` | T2 | sonnet | GCP serverless architectures, Cloud Functions, BigQuery pipelines |
@@ -176,26 +177,28 @@ Microsoft Fabric specialists.
 | `fabric-logging-specialist` | T3 | sonnet | Workspace monitoring, KQL queries, dashboards |
 | `fabric-security-specialist` | T3 | opus | RLS, permissions, data masking, encryption, compliance |
 
-### 4. Python (6 agents)
+### 4. Python (7 agents)
 
 Python development, code quality, and prompt engineering.
 
 | Agent | Tier | Model | Purpose |
 |-------|------|-------|---------|
 | `python-developer` | T1 | sonnet | Python code architecture, dataclasses, type hints |
+| `fastapi-backend-specialist` | T2 | sonnet | FastAPI routers/dependencies, Pydantic v2, async SQLAlchemy/Alembic on PostgreSQL, procrastinate jobs |
 | `code-reviewer` | T2 | sonnet | Review code for quality and security issues |
 | `code-cleaner` | T2 | sonnet | Clean code, remove redundant comments, apply DRY |
 | `code-documenter` | T2 | sonnet | Generate documentation, READMEs, API docs |
 | `ai-prompt-specialist` | T1 | sonnet | Prompt optimization, structured extraction, few-shot |
 | `llm-specialist` | T3 | opus | Advanced prompt engineering, chain-of-thought, structured output |
 
-### 5. JavaScript (1 agent)
+### 5. JavaScript (2 agents)
 
 TypeScript/JavaScript development for Node.js, frontend, and full-stack projects.
 
 | Agent | Tier | Model | Purpose |
 |-------|------|-------|---------|
 | `javascript-developer` | T2 | sonnet | JS/TypeScript code architecture, types, generators, async, Context7-backed library docs |
+| `react-frontend-specialist` | T2 | sonnet | React 19, Vite, Tailwind v4, TanStack Query, role-guarded routes, Vitest/Playwright |
 
 ### 6. Dotnet (5 agents)
 
@@ -333,6 +336,11 @@ Cloud <-> Data Engineering:
 Architect <-> Data Engineering:
   genai-architect -> ai-data-engineer (RAG data layer), streaming-engineer (real-time)
   ai-prompt-specialist -> ai-data-engineer (extraction pipelines)
+
+Application Platform (FastAPI / React / AWS):
+  fastapi-backend-specialist -> aws-app-platform-specialist (Cognito, S3/KMS, SES, EC2/SSM), react-frontend-specialist (API consumption), ai-prompt-specialist (extraction prompts), test-generator (bulk tests), code-reviewer (review)
+  react-frontend-specialist -> fastapi-backend-specialist (API contract), javascript-developer (non-React TS), aws-app-platform-specialist (hosting/delivery), code-reviewer (review)
+  aws-app-platform-specialist -> fastapi-backend-specialist (application code), aws-deployer (SAM/Lambda), aws-container-ops (ECS/SQS/ElastiCache), react-frontend-specialist (client auth flow)
 
 Dev <-> All:
   prompt-crafter -> any agent (agent matching engine)

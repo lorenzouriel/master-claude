@@ -3,7 +3,7 @@
 > The structured knowledge layer that grounds every agent response in verified, domain-specific content.
 
 ```
-27 domains | 336 files | 45,716+ lines | MCP-validated 2026-03-26 (project-management is not MCP-validated — house convention)
+32 domains | 398 files | 51,080+ lines | MCP-validated 2026-03-26 (fastapi, postgresql, react-frontend, aws-app-platform and cicd-github-actions validated 2026-10-02; project-management is not MCP-validated — house convention)
 ```
 
 ---
@@ -107,6 +107,16 @@ Some domains extend this with additional directories:
 | testing | 10 | pytest, fixtures, mocking, parametrize, Spark testing | python-developer, test-generator |
 | shared | 2 | Cross-domain resources: anti-patterns (referenced by every agent via `anti_pattern_refs`) + the component model (agents/skills/commands/KB layering) | (all agents; authoring skills) |
 
+### Application Platform
+
+| Domain | Files | Description | Used By |
+|--------|------:|-------------|---------|
+| fastapi | 12 | FastAPI 0.142: routers, dependency injection, Pydantic v2 schemas/settings, async SQLAlchemy sessions, JWKS JWT auth, testing, OpenAPI TS client, job queues | fastapi-backend-specialist |
+| postgresql | 13 | PostgreSQL 18 on RDS: SQLAlchemy 2.x, Alembic, indexing/EXPLAIN, transactions, RLS, audit trails, procrastinate job queue | fastapi-backend-specialist |
+| react-frontend | 13 | React 19, Vite 8, Tailwind v4, TanStack Query, routing, forms, Recharts, a11y, Vitest/Playwright | react-frontend-specialist |
+| aws-app-platform | 13 | Cognito JWTs/groups, SES, S3 presigned uploads + SSE-KMS/Object Lock, GuardDuty malware scan, EC2/SSM/IAM, Route 53 | aws-app-platform-specialist |
+| cicd-github-actions | 11 | GitHub Actions to GHCR and EC2 Compose via SSM, OIDC to AWS, arm64 images, migrations, supply-chain hardening | aws-app-platform-specialist |
+
 ### Project & Delivery Management
 
 | Domain | Files | Description | Used By |
@@ -134,7 +144,7 @@ Each agent declares a `kb_domains` field in its frontmatter that determines whic
 | schema-designer | data-modeling, sql-patterns, data-quality |
 | the-planner | (none -- strategic planning) |
 
-**Cloud agents** (11 agents in `.claude/agents/cloud/`):
+**Cloud agents** (12 agents in `.claude/agents/cloud/`):
 
 | Agent | KB Domains |
 |-------|------------|
@@ -142,6 +152,7 @@ Each agent declares a `kb_domains` field in its frontmatter that determines whic
 | ai-data-engineer-gcp | gcp, terraform, cloud-platforms, data-quality |
 | ai-prompt-specialist-gcp | prompt-engineering, genai, pydantic, gcp |
 | aws-container-ops | aws |
+| aws-app-platform-specialist | aws-app-platform, cicd-github-actions, terraform, aws |
 | aws-data-architect | aws, terraform, data-quality |
 | aws-deployer | aws, terraform |
 | aws-lambda-architect | aws, terraform |
@@ -183,7 +194,7 @@ Each agent declares a `kb_domains` field in its frontmatter that determines whic
 | sql-server-dba | sql-server |
 | streaming-engineer | streaming, spark, sql-patterns |
 
-**Python agents** (6 agents in `.claude/agents/python/`):
+**Python agents** (7 agents in `.claude/agents/python/`):
 
 | Agent | KB Domains |
 |-------|------------|
@@ -193,6 +204,14 @@ Each agent declares a `kb_domains` field in its frontmatter that determines whic
 | code-reviewer | data-quality, sql-patterns, dbt |
 | llm-specialist | prompt-engineering, pydantic, genai |
 | python-developer | python, pydantic, testing |
+| fastapi-backend-specialist | fastapi, postgresql, pydantic, python, testing |
+
+**JavaScript agents** (2 agents in `.claude/agents/javascript/`):
+
+| Agent | KB Domains |
+|-------|------------|
+| javascript-developer | javascript |
+| react-frontend-specialist | react-frontend, javascript, testing |
 
 **Test agents** (3 agents in `.claude/agents/test/`):
 
@@ -301,7 +320,7 @@ The machine-readable registry lives at `.claude/kb/_index.yaml`. It defines:
 - **limits** -- File size limits (single source of truth)
 - **templates** -- Paths to scaffolding templates
 - **shared** -- Cross-domain resources (anti-patterns library; component model)
-- **domains** -- Complete registry of all 27 domains with:
+- **domains** -- Complete registry of all 32 domains with:
   - `name` -- Domain identifier
   - `description` -- One-line summary
   - `path` -- Directory path relative to `.claude/kb/`

@@ -38,7 +38,7 @@ shared:
     path: shared/component-model.md
     description: "Canonical component layering — agents execute, skills teach how, commands are entrypoints, KBs are source-of-truth; referenced by the authoring skills and the SDD components"
 
-# Domain Registry — 27 named domains (shared/ holds anti-patterns.md and component-model.md, referenced across domains)
+# Domain Registry — 32 named domains (shared/ holds anti-patterns.md and component-model.md, referenced across domains)
 domains:
 
   # ─── Core Data Engineering ─────────────────────────────────────────
@@ -1320,3 +1320,216 @@ domains:
       - name: sdd-integration
         path: patterns/sdd-integration.md
         confidence: 0.80
+
+  # ─── Application Platform (extend-stack 2026-10-02) ───────────────────
+
+  fastapi:
+    name: fastapi
+    description: FastAPI (0.142.x) — routers, dependency injection, Pydantic v2 schemas/settings, async SQLAlchemy, JWKS JWT auth, testing, OpenAPI TS client, job queues
+    path: fastapi/
+    mcp_validated: '2026-10-02'
+    entry_points:
+      index: index.md
+      quick_reference: quick-reference.md
+    concepts:
+    - name: routers-and-app-structure
+      path: concepts/routers-and-app-structure.md
+      confidence: 0.95
+    - name: dependency-injection
+      path: concepts/dependency-injection.md
+      confidence: 0.9
+    - name: schemas-and-settings
+      path: concepts/schemas-and-settings.md
+      confidence: 0.9
+    - name: lifespan-and-async
+      path: concepts/lifespan-and-async.md
+      confidence: 0.95
+    - name: error-handling
+      path: concepts/error-handling.md
+      confidence: 0.95
+    patterns:
+    - name: async-sqlalchemy-session
+      path: patterns/async-sqlalchemy-session.md
+      confidence: 0.9
+    - name: jwt-jwks-auth
+      path: patterns/jwt-jwks-auth.md
+      confidence: 0.9
+    - name: testing-overrides
+      path: patterns/testing-overrides.md
+      confidence: 0.9
+    - name: openapi-ts-client
+      path: patterns/openapi-ts-client.md
+      confidence: 0.85
+    - name: background-jobs-queue
+      path: patterns/background-jobs-queue.md
+      confidence: 0.85
+
+  postgresql:
+    name: postgresql
+    description: PostgreSQL 18 on Amazon RDS as an app database - SQLAlchemy 2.x, Alembic, indexing/EXPLAIN, transactions, RLS, JSONB, audit trails, RDS ops, procrastinate job queue
+    path: postgresql/
+    mcp_validated: '2026-10-02'
+    entry_points:
+      index: index.md
+      quick_reference: quick-reference.md
+    concepts:
+    - name: sqlalchemy-engine-session
+      path: concepts/sqlalchemy-engine-session.md
+      confidence: 0.9
+    - name: alembic-migrations
+      path: concepts/alembic-migrations.md
+      confidence: 0.9
+    - name: transactions-and-constraints
+      path: concepts/transactions-and-constraints.md
+      confidence: 0.9
+    - name: indexing-and-explain
+      path: concepts/indexing-and-explain.md
+      confidence: 0.9
+    - name: row-level-security
+      path: concepts/row-level-security.md
+      confidence: 0.9
+    - name: rds-specifics
+      path: concepts/rds-specifics.md
+      confidence: 0.9
+    patterns:
+    - name: idempotent-writes
+      path: patterns/idempotent-writes.md
+      confidence: 0.85
+    - name: zero-downtime-migrations
+      path: patterns/zero-downtime-migrations.md
+      confidence: 0.85
+    - name: audit-trail-append-only
+      path: patterns/audit-trail-append-only.md
+      confidence: 0.85
+    - name: procrastinate-tasks-and-workers
+      path: patterns/procrastinate-tasks-and-workers.md
+      confidence: 0.9
+    - name: transactional-enqueue
+      path: patterns/transactional-enqueue.md
+      confidence: 0.85
+
+  react-frontend:
+    name: react-frontend
+    description: React 19 + Vite 8 + Tailwind v4 SPA - TanStack Query, routing, forms, Recharts, a11y, Vitest/Playwright, role-based feature folders
+    path: react-frontend/
+    mcp_validated: '2026-10-02'
+    entry_points:
+      index: index.md
+      quick_reference: quick-reference.md
+    concepts:
+    - name: toolchain-vite-tailwind
+      path: concepts/toolchain-vite-tailwind.md
+      confidence: 0.95
+    - name: react19-typescript
+      path: concepts/react19-typescript.md
+      confidence: 0.9
+    - name: server-state-tanstack-query
+      path: concepts/server-state-tanstack-query.md
+      confidence: 0.95
+    - name: client-routing
+      path: concepts/client-routing.md
+      confidence: 0.9
+    - name: charts-recharts
+      path: concepts/charts-recharts.md
+      confidence: 0.9
+    - name: accessibility-basics
+      path: concepts/accessibility-basics.md
+      confidence: 0.9
+    patterns:
+    - name: feature-folders-role-areas
+      path: patterns/feature-folders-role-areas.md
+      confidence: 0.8
+    - name: role-guarded-routes
+      path: patterns/role-guarded-routes.md
+      confidence: 0.9
+    - name: openapi-client-consumption
+      path: patterns/openapi-client-consumption.md
+      confidence: 0.85
+    - name: forms-rhf-zod
+      path: patterns/forms-rhf-zod.md
+      confidence: 0.9
+    - name: testing-vitest-playwright
+      path: patterns/testing-vitest-playwright.md
+      confidence: 0.9
+
+  aws-app-platform:
+    name: aws-app-platform
+    description: AWS for a small web app platform — Cognito JWTs/groups, SES, S3 presigned uploads + SSE-KMS/Object Lock, GuardDuty S3 malware scan, EC2/SSM/IAM, Route 53, RDS basics, scale-up triggers
+    path: aws-app-platform/
+    mcp_validated: '2026-10-02'
+    entry_points:
+      index: index.md
+      quick_reference: quick-reference.md
+    concepts:
+    - name: cognito-tokens-groups
+      path: concepts/cognito-tokens-groups.md
+      confidence: 0.95
+    - name: s3-presigned-uploads
+      path: concepts/s3-presigned-uploads.md
+      confidence: 0.9
+    - name: s3-data-protection
+      path: concepts/s3-data-protection.md
+      confidence: 0.95
+    - name: guardduty-malware-s3
+      path: concepts/guardduty-malware-s3.md
+      confidence: 0.9
+    - name: ses-sending
+      path: concepts/ses-sending.md
+      confidence: 0.95
+    - name: ssm-ec2-iam
+      path: concepts/ssm-ec2-iam.md
+      confidence: 0.95
+    - name: route53-rds-scaling
+      path: concepts/route53-rds-scaling.md
+      confidence: 0.85
+    patterns:
+    - name: cognito-jwt-verification
+      path: patterns/cognito-jwt-verification.md
+      confidence: 0.9
+    - name: s3-upload-scan-gate
+      path: patterns/s3-upload-scan-gate.md
+      confidence: 0.85
+    - name: ses-bounce-handling
+      path: patterns/ses-bounce-handling.md
+      confidence: 0.85
+    - name: ssm-run-command-deploy
+      path: patterns/ssm-run-command-deploy.md
+      confidence: 0.85
+
+  cicd-github-actions:
+    name: cicd-github-actions
+    description: GitHub Actions CI/CD to GHCR and EC2 Docker Compose via SSM — OIDC to AWS, arm64 images, migrations, health-gated deploy, supply-chain hardening
+    path: cicd-github-actions/
+    mcp_validated: '2026-10-02'
+    entry_points:
+      index: index.md
+      quick_reference: quick-reference.md
+    concepts:
+    - name: workflow-fundamentals
+      path: concepts/workflow-fundamentals.md
+      confidence: 0.95
+    - name: oidc-aws-federation
+      path: concepts/oidc-aws-federation.md
+      confidence: 0.95
+    - name: permissions-supply-chain
+      path: concepts/permissions-supply-chain.md
+      confidence: 0.95
+    - name: ghcr-multiarch-images
+      path: concepts/ghcr-multiarch-images.md
+      confidence: 0.9
+    - name: ssm-run-command
+      path: concepts/ssm-run-command.md
+      confidence: 0.95
+    patterns:
+    - name: ci-test-pipeline
+      path: patterns/ci-test-pipeline.md
+      confidence: 0.9
+    - name: build-publish-image
+      path: patterns/build-publish-image.md
+      confidence: 0.9
+    - name: ec2-compose-ssm-deploy
+      path: patterns/ec2-compose-ssm-deploy.md
+      confidence: 0.85
+    - name: environment-gated-release
+      path: patterns/environment-gated-release.md
+      confidence: 0.9

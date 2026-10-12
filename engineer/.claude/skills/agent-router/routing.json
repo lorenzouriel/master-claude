@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "agent_count": 68,
+  "agent_count": 71,
   "agents": [
     {
       "name": "ai-data-engineer",
@@ -65,7 +65,7 @@
       "path": ".claude/agents/python/ai-prompt-specialist.md",
       "tier": "T1",
       "model": "sonnet",
-      "description": "Prompt engineering specialist for LLMs \u2014 extraction, structured output, chain-of-thought, few-shot.",
+      "description": "Prompt engineering specialist for LLMs — extraction, structured output, chain-of-thought, few-shot.",
       "kb_domains": [
         "prompt-engineering",
         "pydantic",
@@ -107,6 +107,26 @@
         "spark-engineer",
         "dbt-specialist",
         "streaming-engineer"
+      ]
+    },
+    {
+      "name": "aws-app-platform-specialist",
+      "category": "cloud",
+      "path": ".claude/agents/cloud/aws-app-platform-specialist.md",
+      "tier": "T2",
+      "model": "sonnet",
+      "description": "AWS application-platform specialist for Cognito, SES, S3 uploads with KMS/GuardDuty, EC2 + SSM, Route 53, IAM, and GitHub Actions deploy pipelines.",
+      "kb_domains": [
+        "aws-app-platform",
+        "cicd-github-actions",
+        "terraform",
+        "aws"
+      ],
+      "escalates_to": [
+        "fastapi-backend-specialist",
+        "aws-deployer",
+        "aws-container-ops",
+        "react-frontend-specialist"
       ]
     },
     {
@@ -522,8 +542,29 @@
         "microsoft-fabric"
       ],
       "escalates_to": [
-        "user",
         "user"
+      ]
+    },
+    {
+      "name": "fastapi-backend-specialist",
+      "category": "python",
+      "path": ".claude/agents/python/fastapi-backend-specialist.md",
+      "tier": "T2",
+      "model": "sonnet",
+      "description": "FastAPI backend specialist for API modules, Pydantic v2 schemas, async SQLAlchemy/Alembic on PostgreSQL, and procrastinate background jobs.",
+      "kb_domains": [
+        "fastapi",
+        "postgresql",
+        "pydantic",
+        "python",
+        "testing"
+      ],
+      "escalates_to": [
+        "aws-app-platform-specialist",
+        "react-frontend-specialist",
+        "ai-prompt-specialist",
+        "test-generator",
+        "code-reviewer"
       ]
     },
     {
@@ -796,7 +837,7 @@
       "path": ".claude/agents/python/python-developer.md",
       "tier": "T1",
       "model": "sonnet",
-      "description": "Python code architect for data engineering systems \u2014 clean patterns, dataclasses, type hints, generators.",
+      "description": "Python code architect for data engineering systems — clean patterns, dataclasses, type hints, generators.",
       "kb_domains": [
         "python",
         "pydantic",
@@ -817,8 +858,26 @@
       ],
       "escalates_to": [
         "ai-data-engineer",
-        "spark-engineer",
-        "ai-data-engineer"
+        "spark-engineer"
+      ]
+    },
+    {
+      "name": "react-frontend-specialist",
+      "category": "javascript",
+      "path": ".claude/agents/javascript/react-frontend-specialist.md",
+      "tier": "T2",
+      "model": "sonnet",
+      "description": "React frontend specialist for React 19, Vite, Tailwind v4, TypeScript, TanStack Query and role-based app structure.",
+      "kb_domains": [
+        "react-frontend",
+        "javascript",
+        "testing"
+      ],
+      "escalates_to": [
+        "fastapi-backend-specialist",
+        "javascript-developer",
+        "aws-app-platform-specialist",
+        "code-reviewer"
       ]
     },
     {
