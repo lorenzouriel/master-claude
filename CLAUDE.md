@@ -16,7 +16,7 @@ The repo is organized as **self-contained domain folders**, each carrying its ow
 
 1. **`company/`** — CompanyOS, a skill-driven business operating system. Also the template for new business workspaces.
 2. **`engineer/`** — master-claude / AgentSpec, the software-engineering config (agents, SDD commands, data-engineering knowledge base).
-3. **`content-creation/`** — Content Creation OS, Lorenzo's personal content system for Medium, LinkedIn, Instagram, and X.
+3. **`content-creation/`** — CreatorOS, the sellable content-system template (Instagram, LinkedIn, X, TikTok, YouTube, Medium). A customer copies it and runs `/system install`. Lorenzo's own instance lives outside this repo (`workspace/uriel/`).
 
 ## Architecture
 
@@ -46,10 +46,11 @@ To spin up a business workspace: copy `company/`, rename it to the business name
 
 Its commands and agents are active only in sessions opened inside `engineer/` (or in a project that copies `engineer/.claude/`). Do not document or invoke them as if they were active at the repo root.
 
-### `content-creation/` — Content Creation OS
+### `content-creation/` — CreatorOS (product template)
 
-- `.claude/skills/` — 22 skills, one per module (writing per platform, humanizer, seo, intel, pipeline, buffer, archive, analytics). They route themselves from their descriptions; `CLAUDE.md` keeps only tie-breaks and chained workflows.
+- `.claude/skills/` — 11 hubs (`system`, `content`, `research`, `analytics`, `linkedin`, `x`, `instagram`, `medium`, `visual`, `tiktok`, `youtube`), each routing to sub-skill folders. `system` holds `install` (the onboarding interview), `doctor`, and `update`.
 - `.claude/agents/` — `researcher`, `editor`, `analyst`, `archivist`: isolated heavy work. Writing stays in the main thread.
-- `context/` (memory, pillars, platform rules, storage) and `brand/` (design guide, assets, brand book), auto-loaded via `@imports` in its `CLAUDE.md`.
+- `context/` and `brand/design-guide.md` ship as templates marked `<!-- creatoros:template -->`; `/system install` fills them. Skills say "the owner" and read every brand, voice, niche and account detail from these files. Never put a real customer's data in this folder.
+- `brand/` (assets, fonts, inspirations) ships empty; the brand-book template lives in `.claude/skills/system/install/templates/`.
 - `data/` and `output/` are local state, gitignored except `.gitkeep`; CSV schemas live in the owning skills.
-- `web/` + `scripts/build-web.py` generate the claude.ai upload bundle into `dist/` (gitignored). `web/overrides/` holds the Drive-specific versions of 7 files; everything else comes from `.claude/skills/`.
+- The video engine (`visual/video-edit/scripts/`) bundles OFL fonts and 23 CC0 music tracks (~155 MB).
