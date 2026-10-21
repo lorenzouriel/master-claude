@@ -1,0 +1,25 @@
+# The owner's state stays local. CSV schemas live in the owning skills
+# (content-pipeline, content-analytics, news-radar); folders kept via .gitkeep.
+data/**
+!data/**/
+!data/**/.gitkeep
+output/**
+!output/**/
+!output/**/.gitkeep
+
+# Reference posts and videos the owner saves (third-party content): local only
+brand/inspirations/**
+!brand/inspirations/**/
+!brand/inspirations/**/.gitkeep
+
+# Secrets (API keys for optional integrations)
+.env
+.env.*
+
+# The repo root ignores every "archive/" folder; this one is a skill
+!**/.claude/skills/content/archive/
+
+# video-edit engine environment (rebuilt by uv sync / vedit.py assets)
+.claude/skills/visual/video-edit/scripts/.venv/
+.claude/skills/visual/video-edit/scripts/assets/
+**/__pycache__/

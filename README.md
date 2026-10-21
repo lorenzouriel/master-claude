@@ -19,6 +19,10 @@ master-claude/
 │   └── SETUP.md           ← non-technical setup guide
 ├── engineer/              ← master-claude / AgentSpec: software-engineering config
 │   └── .claude/           ← agents, commands, kb, sdd, skills
+├── content-creation/      ← Content Creation OS: Medium, LinkedIn, Instagram, X
+│   ├── .claude/           ← skills (one per module) + agents (researcher, editor, analyst, archivist)
+│   ├── context/  brand/   ← memory, pillars, platform rules, design guide
+│   └── web/               ← claude.ai bundle sources (built by scripts/build-web.py)
 ├── docs/                  ← repo assets
 ├── CLAUDE.md              ← lab operating rules (loaded when working on the lab itself)
 └── .mcp.json              ← Playwright MCP

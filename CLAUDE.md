@@ -16,6 +16,7 @@ The repo is organized as **self-contained domain folders**, each carrying its ow
 
 1. **`company/`** — CompanyOS, a skill-driven business operating system. Also the template for new business workspaces.
 2. **`engineer/`** — master-claude / AgentSpec, the software-engineering config (agents, SDD commands, data-engineering knowledge base).
+3. **`content-creation/`** — Content Creation OS, Lorenzo's personal content system for Medium, LinkedIn, Instagram, and X.
 
 ## Architecture
 
@@ -44,3 +45,11 @@ To spin up a business workspace: copy `company/`, rename it to the business name
 - `.claude/sdd/` — SDD workflow artifacts (features, reports, archive)
 
 Its commands and agents are active only in sessions opened inside `engineer/` (or in a project that copies `engineer/.claude/`). Do not document or invoke them as if they were active at the repo root.
+
+### `content-creation/` — Content Creation OS
+
+- `.claude/skills/` — 22 skills, one per module (writing per platform, humanizer, seo, intel, pipeline, buffer, archive, analytics). They route themselves from their descriptions; `CLAUDE.md` keeps only tie-breaks and chained workflows.
+- `.claude/agents/` — `researcher`, `editor`, `analyst`, `archivist`: isolated heavy work. Writing stays in the main thread.
+- `context/` (memory, pillars, platform rules, storage) and `brand/` (design guide, assets, brand book), auto-loaded via `@imports` in its `CLAUDE.md`.
+- `data/` and `output/` are local state, gitignored except `.gitkeep`; CSV schemas live in the owning skills.
+- `web/` + `scripts/build-web.py` generate the claude.ai upload bundle into `dist/` (gitignored). `web/overrides/` holds the Drive-specific versions of 7 files; everything else comes from `.claude/skills/`.
