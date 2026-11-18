@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="image.png" alt="master-claude" width="260">
+  <img src="logo.png" alt="master-claude" width="260">
 </div>
 
 # master-claude
